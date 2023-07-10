@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bigpro.Dao.MallUserTokenMapper">
+    <resultMap id="BaseResultMap" type="com.example.bigpro.entity.MallUserToken">
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id,token,update_time,expire_time
+    </sql>
+    <select id="selectByToken" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_token
+        where token = #{token,jdbcType = VATCHAR}
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_token
+        where user_id = #{userId,jdbcType = BIGINT}
+    </select>
+    <insert id="insertSelective" parameterType="com.example.bigpro.entity.MallUserToken">
+        insert into tb_newbee_mall_user_token
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="userId != null">
+                    user_id,
+                </if>
+                <if test="token != null">
+                    token,
+                </if>
+                <if test="updateTime != null">
+                    update_time,
+                </if>
+                <if test="expireTime != null">
+                    expire_time,
+                </if>
+            </trim>
+            <trim prefix="value (" suffix=")" suffixOverrides=",">
+                <if test="userId !=null">
+                    #{userId,jdbctype=BIGINT},
+                </if>
+                <if test="token !=null">
+                    #{token,jdbctype=BIGINT},
+                </if>
+                <if test="updateTime != TIMESTAMP">
+                    #{userId,jdbctype=BIGINT},
+                </if>
+                <if test="expireTime !=null">
+                    #{expireTime,jdbctype=TIMESTAMP},
+                </if>
+            </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.bigpro.entity.MallUserToken">
+        update tb_newbee_mall_user_token
+        <set>
+            <if test="token != null">
+                token = #{token,jdbctype=VARCHAR}
+            </if>
+            <if test="updateTime != TIMESTAMP">
+                update_time = #{userId,jdbctype=BIGINT},
+            </if>
+            <if test="expireTime !=null">
+                expire_time = #{expireTime,jdbctype=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbctype = BIGINT}
+    </update>
+</mapper>
