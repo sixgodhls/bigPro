@@ -36,11 +36,12 @@ public class MallUserServiceImpl implements MallUserService {
             Date now = new Date();
             Date expireTime = new Date(now.getTime() + 2 * 24 * 3600 * 1000);
             if(mallUserToken == null){
-                mallUserToken.setToken(token);
-                mallUserToken.setUserId(mallUser.getUserId());
-                mallUserToken.setExpireTime(expireTime);
-                mallUserToken.setUpdateTime(now);
-                if(mallUserTokenMapper.insertSelective(mallUserToken)>0){
+                MallUserToken mallUserTokenNew = new MallUserToken();
+                mallUserTokenNew.setToken(token);
+                mallUserTokenNew.setUserId(mallUser.getUserId());
+                mallUserTokenNew.setExpireTime(expireTime);
+                mallUserTokenNew.setUpdateTime(now);
+                if(mallUserTokenMapper.insertSelective(mallUserTokenNew)>0){
                     return token;
                 }
             }else {
