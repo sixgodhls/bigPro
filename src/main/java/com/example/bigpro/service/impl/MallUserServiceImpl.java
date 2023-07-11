@@ -8,14 +8,17 @@ import com.example.bigpro.entity.MallUser;
 import com.example.bigpro.service.MallUserService;
 import com.example.bigpro.util.NumberUtil;
 import com.example.bigpro.util.SystemUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
 public class MallUserServiceImpl implements MallUserService {
-    private static MallUserMapper mallUserMapper;
-    private static MallUserTokenMapper mallUserTokenMapper;
+    @Autowired
+    public MallUserMapper mallUserMapper;
+    @Autowired
+    public MallUserTokenMapper mallUserTokenMapper;
     //生成token值
     public String getNewToken(String timeStr,Long userId){
         String src = timeStr+userId+ NumberUtil.genRandomNum(4);
