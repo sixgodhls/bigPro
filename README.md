@@ -2,13 +2,13 @@
 
 springboot+vue3 商城项目
 
-##技术栈
+## 技术栈
 
-SpringBoot
-MySQL
-mybatis
-swagger
-
+SpringBoot  
+MySQL  
+mybatis  
+swagger  
+  
 ...
 
 ## Day1
