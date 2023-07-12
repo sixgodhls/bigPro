@@ -2,10 +2,13 @@ package com.example.bigpro.service.impl;
 
 import com.example.bigpro.Dao.MallUserMapper;
 import com.example.bigpro.Dao.MallUserTokenMapper;
+import com.example.bigpro.common.MallException;
 import com.example.bigpro.common.ServiceResultEnum;
 import com.example.bigpro.entity.MallUserToken;
 import com.example.bigpro.entity.MallUser;
+import com.example.bigpro.param.MallUserUpdateParam;
 import com.example.bigpro.service.MallUserService;
+import com.example.bigpro.util.MD5Util;
 import com.example.bigpro.util.NumberUtil;
 import com.example.bigpro.util.SystemUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +60,25 @@ public class MallUserServiceImpl implements MallUserService {
         return ServiceResultEnum.LOGIN_ERROR.getResult();
     }
 
+    @Override
+    public Boolean updateUserInfo(MallUserUpdateParam mallUser, Long userId) {
+        MallUser user = mallUserMapper.selectByPrimaryKey(userId);
+        if (user == null) {
+            MallException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+        }
+        user.setNickName(mallUser.getNickName());
+        if (!mallUser.getPasswordMd5().equals(MD5Util.MD5Encode("","UTF-8"))){
+            user.setPasswordMD5(mallUser.getPasswordMd5());
+        }
+        user.setIntroduceSign(mallUser.getIntroduceSign());
+        if (mallUserMapper.updateByPrimaryKeySelective(user)>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean logout(Long userId) {
+        return mallUserTokenMapper.deleteByPrimaryKey(userId)>0;
+    }
 }
