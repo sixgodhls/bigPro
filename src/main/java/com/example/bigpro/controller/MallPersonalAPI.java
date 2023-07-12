@@ -1,12 +1,18 @@
 package com.example.bigpro.controller;
 
 import com.example.bigpro.common.Constants;
+import com.example.bigpro.config.annotation.TokenToMallUser;
 import com.example.bigpro.controller.result.Result;
 import com.example.bigpro.controller.result.ResultGenerator;
+import com.example.bigpro.entity.MallUser;
+import com.example.bigpro.entity.MallUserV0;
 import com.example.bigpro.param.MallUserLoginParam;
+import com.example.bigpro.param.MallUserUpdateParam;
 import com.example.bigpro.service.MallUserService;
+import com.example.bigpro.util.BeanUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +44,34 @@ public class MallPersonalAPI {
         }
         //登录失败
         return ResultGenerator.genFailResult(loginResult);
+    }
+
+    @GetMapping("/user/info")
+    @ApiOperation(value = "获取用户信息" ,notes = " ")
+    public Result<MallUserV0> getUserDetail(@TokenToMallUser MallUser mallUser){
+        MallUserV0 mallUserV0 = new MallUserV0();
+        BeanUtil.copyProperties(mallUser,mallUserV0);
+        return ResultGenerator.genSuccessResult(mallUserV0);
+    }
+
+    @PutMapping("/user/info")
+    @ApiOperation(value = "修改用户信息",notes = " ")
+    public Result updateUserInfo(@RequestBody @ApiParam("用户信息") MallUserUpdateParam mallUserUpdateParam,@TokenToMallUser MallUser mallUser){
+        Boolean info = mallUserService.updateUserInfo(mallUserUpdateParam, mallUser.getUserId());
+        if(info){
+            return ResultGenerator.genSuccessResult();
+        }else{
+            return ResultGenerator.genFailResult("修改失败");
+        }
+    }
+
+    @PostMapping("/user/logout")
+    @ApiOperation(value = "登出接口",notes = " ")
+    public Result<String> logout(@TokenToMallUser MallUser mallUser){
+        Boolean logout = mallUserService.logout(mallUser.getUserId());
+        if (logout){
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult("logout error");
     }
 }
