@@ -38,7 +38,7 @@ public class TokenToMallUserMethodArgumentResolver implements HandlerMethodArgum
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        //感觉可以删if 前面已经判定是不是TokenToMallUser类了这边这个判定多于了 以后写玩完了再看看
+        //感觉可以删if 前面已经判定是不是TokenToMallUser类了这边这个判定多于了 以后写完了再看看
         if(parameter.getParameterAnnotation(TokenToMallUser.class) instanceof TokenToMallUser){
             MallUser mallUser = null;
             String token = webRequest.getHeader("token");
