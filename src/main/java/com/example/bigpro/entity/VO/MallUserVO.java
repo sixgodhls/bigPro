@@ -1,10 +1,10 @@
-package com.example.bigpro.entity;
+package com.example.bigpro.entity.VO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class MallUserV0 {
+public class MallUserVO {
     @ApiModelProperty("用户昵称")
     private String nickName;
 
