@@ -5,7 +5,7 @@ import com.example.bigpro.config.annotation.TokenToMallUser;
 import com.example.bigpro.controller.result.Result;
 import com.example.bigpro.controller.result.ResultGenerator;
 import com.example.bigpro.entity.MallUser;
-import com.example.bigpro.entity.MallUserV0;
+import com.example.bigpro.entity.VO.MallUserVO;
 import com.example.bigpro.param.MallUserLoginParam;
 import com.example.bigpro.param.MallUserUpdateParam;
 import com.example.bigpro.service.MallUserService;
@@ -48,8 +48,8 @@ public class MallPersonalAPI {
 
     @GetMapping("/user/info")
     @ApiOperation(value = "获取用户信息" ,notes = " ")
-    public Result<MallUserV0> getUserDetail(@TokenToMallUser MallUser mallUser){
-        MallUserV0 mallUserV0 = new MallUserV0();
+    public Result<MallUserVO> getUserDetail(@TokenToMallUser MallUser mallUser){
+        MallUserVO mallUserV0 = new MallUserVO();
         BeanUtil.copyProperties(mallUser,mallUserV0);
         return ResultGenerator.genSuccessResult(mallUserV0);
     }
