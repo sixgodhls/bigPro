@@ -11,6 +11,7 @@ import com.example.bigpro.service.MallCarouselService;
 import com.example.bigpro.service.impl.IndexConfigServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +24,13 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class MallIndexAPI {
 
-    @Resource
+    @Autowired
     private MallCarouselService mallCarouselService;
-    @Resource
+
+    @Autowired
     private IndexConfigServiceImpl indexConfigService;
 
-    @GetMapping("index-infos")
+    @GetMapping("/index-infos")
     @ApiOperation(value = "获取首页数据",notes = "轮播图，新品，推荐")
     public Result<IndexInfoVO> indexInfo(){
         IndexInfoVO indexInfoVO = new IndexInfoVO();
