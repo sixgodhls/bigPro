@@ -33,3 +33,7 @@ swagger
 
 分类接口（后续改一下，代码太冗余了）
 用mybatis的one2many实现分级
+
+## Day7
+
+商品详情接口
