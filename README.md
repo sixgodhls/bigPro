@@ -28,3 +28,8 @@ swagger
 ## Day4,5
 
 首页接口
+
+## Day6
+
+分类接口（后续改一下，代码太冗余了）
+用mybatis的one2many实现分级
